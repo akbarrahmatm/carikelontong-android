@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ProdukActivity">
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/white"
+        android:drawableLeft="@drawable/ic_back"
+        android:layout_alignParentTop="true"
+        android:fontFamily="@font/inter"
+        android:text="Kembali"
+        android:id="@+id/btnKembali"
+        android:textAllCaps="false"
+        android:textColor="@color/colorPrimary" />
+
+    <TextView
+        android:id="@+id/namaTokoProduk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnKembali"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/card_title"
+        android:elevation="8dp"
+        android:fontFamily="@font/inter"
+        android:padding="20dp"
+        android:text="@string/empty_label"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <GridView
+        android:horizontalSpacing="0dp"
+        android:verticalSpacing="0dp"
+        android:id="@+id/gridView"
+        android:numColumns="2"
+        android:background="@null"
+        android:layout_below="@+id/namaTokoProduk"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <TextView
+        android:layout_below="@+id/namaTokoProduk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/inter"
+        android:textColor="@color/black"
+        android:layout_margin="10dp"
+        android:id="@+id/kosong"/>
+
+</RelativeLayout>
