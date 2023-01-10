@@ -61,6 +61,29 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         btnDetailToko.setVisibility(View.GONE);
     }
 
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        builder.setTitle("Keluar Aplikasi")
+                .setMessage("Apakah anda yakin ingin keluar?")
+                .setIcon(R.drawable.alert_new)
+                .setCancelable(false)
+                .setPositiveButton("YA", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        MapsActivity.this.finish();
+                    }
+                })
+                .setNegativeButton("TIDAK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.

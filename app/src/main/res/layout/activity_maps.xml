@@ -14,30 +14,49 @@
         android:layout_height="match_parent"
         tools:context=".MapsActivity" />
 
+    <ImageButton
+        android:id="@+id/btnInfo"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_below="@+id/branding"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/circle_bg"
+        android:padding="5dp"
+        android:scaleType="fitXY"
+        android:elevation="8dp"
+        android:layout_marginEnd="20dp"
+        android:src="@drawable/ic_info_purple" />
+
     <LinearLayout
+        android:id="@+id/branding"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="10dp"
-        android:elevation="8dp"
-        android:layout_margin="20dp"
-        android:gravity="center"
         android:layout_alignParentTop="true"
-        android:background="@drawable/card_title">
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/card_title"
+        android:elevation="8dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
         <ImageView
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_marginRight="10dp"
-            android:src="@drawable/logo_cari"/>
+            android:src="@drawable/logo_cari" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/inter"
+            android:text="CariKelontong"
+            android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20dp"
-            android:textStyle="bold"
-            android:fontFamily="@font/inter"
-            android:textAlignment="center"
-            android:text="CariKelontong"/>
+            android:textStyle="bold" />
     </LinearLayout>
 
 

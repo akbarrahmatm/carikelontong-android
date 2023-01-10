@@ -6,15 +6,35 @@
     android:layout_height="match_parent"
     tools:context=".DetailLokasiActivity">
 
-    <org.osmdroid.views.MapView
-        android:id="@+id/mapbaru"
+
+    <LinearLayout
+        android:id="@+id/mapcontainer"
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
+        android:layout_height="200dp"
+        android:gravity="center"
+        android:orientation="vertical">
+        <org.osmdroid.views.MapView
+            android:id="@+id/mapbaru"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <ProgressBar
+            android:id="@+id/loadingDirection"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/circle_bg"
+            android:elevation="8dp"
+            android:padding="5dp"
+            android:indeterminateTint="@color/colorPrimary"
+            android:indeterminateTintMode="src_atop"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/mapbaru"
+        android:layout_below="@id/mapcontainer"
         android:orientation="vertical">
 
         <Button

@@ -24,6 +24,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,7 +51,10 @@ import org.osmdroid.bonuspack.routing.OSRMRoadManager;
 import org.osmdroid.bonuspack.routing.Road;
 import org.osmdroid.bonuspack.routing.RoadManager;
 import org.osmdroid.config.Configuration;
+import org.osmdroid.tileprovider.tilesource.OnlineTileSourceBase;
+import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
+import org.osmdroid.util.MapTileIndex;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.Polyline;
@@ -66,6 +70,7 @@ public class DetailLokasiActivity extends AppCompatActivity {
     private LocationRequest locationRequest;
     TextView tvDetailNamaToko, tvDetailAlamatToko, tvDetailMinuman, tvDetailEsKrim, tvDetailGas, tvDetailBensin, tvDetailPulsa;
     Button btnCekHarga, btnKembali;
+
     private final int PERMISSION_CODE = 1;
 
     @Override
@@ -76,6 +81,9 @@ public class DetailLokasiActivity extends AppCompatActivity {
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
 
         setContentView(R.layout.activity_detail_lokasi);
+
+
+
 
         btnKembali = findViewById(R.id.btnKembali);
         btnKembali.setOnClickListener(new View.OnClickListener() {
@@ -98,17 +106,18 @@ public class DetailLokasiActivity extends AppCompatActivity {
 
         checkPermissions();
 
-        getDetailDataLocation();
 
         MapView map = (MapView) findViewById(R.id.mapbaru);
 
 
-        IMapController mapController = map.getController();
-        mapController.setZoom(19);
 
-        GeoPoint startPoint = new GeoPoint(-6.2378366, 106.7650841);
 
-        mapController.setCenter(startPoint);
+        map.setVisibility(View.GONE);
+
+        getDetailDataLocation();
+
+
+
 
     }
 
@@ -248,7 +257,14 @@ public class DetailLokasiActivity extends AppCompatActivity {
                                         ((OSRMRoadManager)roadManager).setMean(OSRMRoadManager.MEAN_BY_CAR);
 
                                         MapView map = (MapView) findViewById(R.id.mapbaru);
+                                        ProgressBar loadingDirection = (ProgressBar) findViewById(R.id.loadingDirection);
+
+                                        loadingDirection.setVisibility(View.GONE);
+                                        map.setVisibility(View.VISIBLE);
+
                                         map.setMultiTouchControls(true);
+
+
                                         map.invalidate();
 
 
