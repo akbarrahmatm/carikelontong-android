@@ -1,14 +1,20 @@
 package com.akbarrahmatm.projectuas_2112500851;
 
 import androidx.appcompat.app.AlertDialog;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.akbarrahmatm.projectuas_2112500851.model.ListTokoModel;
@@ -37,6 +43,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ActivityMapsBinding binding;
     private List<TokoModel> mListMarker = new ArrayList<>();
 
+    private final int PERMISSION_CODE = 1;
+
     String URLString;
 
     Button btnDetailToko;
@@ -54,11 +62,109 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        checkPermissions();
 
         btnDetailToko = findViewById(R.id.btnDetailToko);
+        ImageButton btnInfo = (ImageButton) findViewById(R.id.btnInfo);
+        ImageButton btnMode = (ImageButton) findViewById(R.id.btnMode);
+
+        btnInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                customInfoDialog();
+            }
+        });
+
+        btnMode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                customModeDialog();
+            }
+        });
 
 
         btnDetailToko.setVisibility(View.GONE);
+    }
+
+    private void customModeDialog() {
+        ViewGroup viewGroup = findViewById(android.R.id.content);
+
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.mode_dialog, viewGroup, false);
+
+
+        //Now we need an AlertDialog.Builder object
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        //setting the view of the builder to our custom view that we already inflated
+        builder.setView(dialogView);
+
+        Button btnNormal = (Button) dialogView.findViewById(R.id.btnNormal);
+        Button btnHybrid = (Button) dialogView.findViewById(R.id.btnHybrid);
+        Button btnSatellite = (Button) dialogView.findViewById(R.id.btnSatellite);
+        Button btnTerrain = (Button) dialogView.findViewById(R.id.btnTerrain);
+
+
+
+
+        //finally creating the alert dialog and displaying it
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+        btnNormal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
+                alertDialog.dismiss();
+            }
+        });
+        btnHybrid.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+                alertDialog.dismiss();
+            }
+        });
+        btnSatellite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mMap.setMapType(GoogleMap.MAP_TYPE_SATELLITE);
+                alertDialog.dismiss();
+            }
+        });
+        btnTerrain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mMap.setMapType(GoogleMap.MAP_TYPE_TERRAIN);
+                alertDialog.dismiss();
+            }
+        });
+    }
+
+    private void customInfoDialog() {
+        ViewGroup viewGroup = findViewById(android.R.id.content);
+
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.info_dialog, viewGroup, false);
+
+
+        //Now we need an AlertDialog.Builder object
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        //setting the view of the builder to our custom view that we already inflated
+        builder.setView(dialogView);
+
+        Button buttonOk = (Button) dialogView.findViewById(R.id.buttonOk);
+
+
+
+        //finally creating the alert dialog and displaying it
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+        buttonOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                alertDialog.dismiss();}
+        });
     }
 
     @Override
@@ -101,9 +207,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void getAllDataLocation() {
-        final ProgressDialog progressDialog = new ProgressDialog(this);
+        final ProgressDialog progressDialog = new ProgressDialog(this, R.style.PrimaryProgressDialog);
         progressDialog.setMessage("Mohon Tunggu ...");
         progressDialog.show();
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
 
         ApiService apiService = ApiClient.getRetrofit().create(ApiService.class);
         Call<ListTokoModel> call = apiService.getAllLocation();
@@ -137,6 +245,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         });
     }
 
+    private boolean checkPermissions(){
+        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED)  {
+            return true;
+        }
+        else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION}, PERMISSION_CODE);
+            return false;
+        }
+    }
     private void initMarker(List<TokoModel> mListMarker) {
         for(int i = 0; i < mListMarker.size(); i++){
             LatLng location = new LatLng(Double.parseDouble(mListMarker.get(i).getBujur()), Double.parseDouble(mListMarker.get(i).getLintang()));

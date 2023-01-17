@@ -66,9 +66,11 @@ public class ProdukActivity extends AppCompatActivity {
     }
 
     private void getAllData(){
-        final ProgressDialog progressDialog = new ProgressDialog(this);
+        final ProgressDialog progressDialog = new ProgressDialog(this, R.style.PrimaryProgressDialog);
         progressDialog.setMessage("Mohon Tunggu ...");
         progressDialog.show();
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
 
         Bundle extras = getIntent().getExtras();
         if(extras != null){

@@ -13,9 +13,16 @@
         <entry key="..\:/Android/ProjectUAS_2112500851/app/src/main/res/layout/activity_detail.xml" value="0.176" />
         <entry key="..\:/Android/ProjectUAS_2112500851/app/src/main/res/layout/activity_detail_lokasi.xml" value="0.152" />
         <entry key="..\:/Android/ProjectUAS_2112500851/app/src/main/res/layout/activity_detail_toko.xml" value="0.25" />
-        <entry key="..\:/Android/ProjectUAS_2112500851/app/src/main/res/layout/activity_maps.xml" value="0.1" />
+        <entry key="..\:/Android/ProjectUAS_2112500851/app/src/main/res/layout/activity_direction_jalan.xml" value="0.25" />
+        <entry key="..\:/Android/ProjectUAS_2112500851/app/src/main/res/layout/activity_direction_mobil.xml" value="0.25" />
+        <entry key="..\:/Android/ProjectUAS_2112500851/app/src/main/res/layout/activity_direction_motor.xml" value="0.25" />
+        <entry key="..\:/Android/ProjectUAS_2112500851/app/src/main/res/layout/activity_maps.xml" value="0.176" />
+        <entry key="..\:/Android/ProjectUAS_2112500851/app/src/main/res/layout/activity_motor.xml" value="0.25" />
         <entry key="..\:/Android/ProjectUAS_2112500851/app/src/main/res/layout/activity_produk.xml" value="0.176" />
         <entry key="..\:/Android/ProjectUAS_2112500851/app/src/main/res/layout/activity_splash_screen.xml" value="0.2" />
+        <entry key="..\:/Android/ProjectUAS_2112500851/app/src/main/res/layout/direction_dialog.xml" value="0.25" />
+        <entry key="..\:/Android/ProjectUAS_2112500851/app/src/main/res/layout/info_dialog.xml" value="0.264" />
+        <entry key="..\:/Android/ProjectUAS_2112500851/app/src/main/res/layout/mode_dialog.xml" value="0.24895833333333334" />
         <entry key="..\:/Android/ProjectUAS_2112500851/app/src/main/res/layout/row_grid_items.xml" value="0.25" />
       </map>
     </option>

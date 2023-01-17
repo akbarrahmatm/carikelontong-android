@@ -20,6 +20,24 @@
         android:theme="@style/Theme.ProjectUAS_2112500851"
         tools:targetApi="31">
         <activity
+            android:name=".DirectionJalanActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DirectionMobilActivity"
+            android:exported="false" />
+        <activity
+            android:name=".DirectionMotorActivity"
+            android:exported="false" />
+        <activity
+            android:name=".JalanActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MobilActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MotorActivity"
+            android:exported="false" />
+        <activity
             android:name=".DetailLokasiActivity"
             android:exported="false" />
         <activity

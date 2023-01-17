@@ -1,6 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/ic_info" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Informasi"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_marginTop="15dp" >
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter"
+                    android:textColor="@color/black"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:text="Cara Memilih Titik Toko :" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="5dp"
+                    android:textSize="16dp"
+                    android:justificationMode="inter_word"
+                    android:text="Pilih titik yang anda inginkan, lalu dibawah akan muncul detail toko dan nama toko. Selanjutnya anda dapat klik detail untuk melihat detail dari toko tersebut." />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/tutor_new_1"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="5dp"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:text="Cara Mengganti Jenis Peta :" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="5dp"
+                    android:textSize="16dp"
+                    android:justificationMode="inter_word"
+                    android:text="Klik icon dengan gambar layer yang ada di kanan atas tampilan aplikasi. Lalu pilih sesuai kemauan dan kebutuhan anda" />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/tutor_new_2"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="5dp"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:text="Cara Memilih Jenis Arah (Direction) :" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="5dp"
+                    android:textSize="16dp"
+                    android:justificationMode="inter_word"
+                    android:text="Di bagian detail toko, klik icon direction yang ada di pojok kanan atas. Lalu pilih mode yang anda butuhkan lalu anda akan diarahkan ke direction sesuai dengan yang anda pilih." />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/tutor_new_3"/>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="5dp"
+                    android:textSize="16dp"
+                    android:textStyle="bold"
+                    android:text="Cara Cek Harga Produk :" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/inter"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="5dp"
+                    android:textSize="16dp"
+                    android:justificationMode="inter_word"
+                    android:text="Di bagian detail toko, klik tombol Cek Harga Produk lalu anda akan diarahkan ke harga produk berdasarkan toko yang anda pilih." />
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:layout_marginTop="5dp"
+                    android:src="@drawable/tutor_new_4"/>
+
+            </LinearLayout>
+
+
+        </ScrollView>
+
+        <Button
+            android:id="@+id/buttonOk"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:text="Ok"/>
+
+    </LinearLayout>
+
+</LinearLayout>

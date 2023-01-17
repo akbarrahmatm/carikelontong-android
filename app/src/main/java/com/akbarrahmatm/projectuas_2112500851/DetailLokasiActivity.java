@@ -22,12 +22,18 @@ import android.os.Looper;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.akbarrahmatm.projectuas_2112500851.direction.JalanActivity;
+import com.akbarrahmatm.projectuas_2112500851.direction.MobilActivity;
+import com.akbarrahmatm.projectuas_2112500851.direction.MotorActivity;
 import com.akbarrahmatm.projectuas_2112500851.directionhelper.FetchURL;
 import com.akbarrahmatm.projectuas_2112500851.model.ListDetailTokoModel;
 import com.akbarrahmatm.projectuas_2112500851.network.ApiClient;
@@ -70,8 +76,8 @@ public class DetailLokasiActivity extends AppCompatActivity {
     private LocationRequest locationRequest;
     TextView tvDetailNamaToko, tvDetailAlamatToko, tvDetailMinuman, tvDetailEsKrim, tvDetailGas, tvDetailBensin, tvDetailPulsa;
     Button btnCekHarga, btnKembali;
+    ProgressDialog progressDialog;
 
-    private final int PERMISSION_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +89,11 @@ public class DetailLokasiActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail_lokasi);
 
 
-
+        progressDialog = new ProgressDialog(this, R.style.PrimaryProgressDialog);
+        progressDialog.setMessage("Mohon Tunggu, Sedang memuat Detail Toko");
+        progressDialog.show();
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
 
         btnKembali = findViewById(R.id.btnKembali);
         btnKembali.setOnClickListener(new View.OnClickListener() {
@@ -104,7 +114,6 @@ public class DetailLokasiActivity extends AppCompatActivity {
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
 
-        checkPermissions();
 
 
         MapView map = (MapView) findViewById(R.id.mapbaru);
@@ -116,16 +125,96 @@ public class DetailLokasiActivity extends AppCompatActivity {
 
         getDetailDataLocation();
 
+        ImageButton btnDirection = (ImageButton) findViewById(R.id.btnDirection);
+        btnDirection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                directionDialog();
+            }
+        });
 
+
+
+
+    }
+
+    private void directionDialog() {
+        ViewGroup viewGroup = findViewById(android.R.id.content);
+
+        View dialogView = LayoutInflater.from(this).inflate(R.layout.direction_dialog, viewGroup, false);
+
+
+        //Now we need an AlertDialog.Builder object
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        //setting the view of the builder to our custom view that we already inflated
+        builder.setView(dialogView);
+
+        Button btnMotor = (Button) dialogView.findViewById(R.id.btnMotor);
+        Button btnMobil = (Button) dialogView.findViewById(R.id.btnMobil);
+        Button btnJalan = (Button) dialogView.findViewById(R.id.btnJalan);
+
+
+
+        //finally creating the alert dialog and displaying it
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+        Bundle extras = getIntent().getExtras();
+        if(extras != null){
+            String id_toko = extras.getString("id_toko");
+            ApiService apiService = ApiClient.getRetrofit().create(ApiService.class);
+            Call<ListDetailTokoModel> call = apiService.getDetailLocation(id_toko);
+            call.enqueue(new Callback<ListDetailTokoModel>() {
+                @Override
+                public void onResponse(Call<ListDetailTokoModel> call, Response<ListDetailTokoModel> response) {
+                    btnMotor.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            alertDialog.dismiss();
+                            Intent intent = new Intent(DetailLokasiActivity.this, DirectionMotorActivity.class);
+                            intent.putExtra("bujur", response.body().getData().get(0).getBujur());
+                            intent.putExtra("lintang", response.body().getData().get(0).getLintang());
+                            intent.putExtra("nama_toko", response.body().getData().get(0).getNamaToko());
+                            startActivity(intent);
+                        }
+                    });
+                    btnMobil.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            alertDialog.dismiss();
+                            Intent intent = new Intent(DetailLokasiActivity.this, DirectionMobilActivity.class);
+                            intent.putExtra("bujur", response.body().getData().get(0).getBujur());
+                            intent.putExtra("lintang", response.body().getData().get(0).getLintang());
+                            intent.putExtra("nama_toko", response.body().getData().get(0).getNamaToko());
+                            startActivity(intent);
+                        }
+                    });
+                    btnJalan.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            alertDialog.dismiss();
+                            Intent intent = new Intent(DetailLokasiActivity.this, DirectionJalanActivity.class);
+                            intent.putExtra("bujur", response.body().getData().get(0).getBujur());
+                            intent.putExtra("lintang", response.body().getData().get(0).getLintang());
+                            intent.putExtra("nama_toko", response.body().getData().get(0).getNamaToko());
+                            startActivity(intent);
+                        }
+                    });
+                }
+
+                @Override
+                public void onFailure(Call<ListDetailTokoModel> call, Throwable t) {
+
+                }
+            });
+        }
 
 
     }
 
     private void getDetailDataLocation() {
 
-        final ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setMessage("Mohon Tunggu, Sedang memuat Detail Toko");
-        progressDialog.show();
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -136,9 +225,10 @@ public class DetailLokasiActivity extends AppCompatActivity {
             call.enqueue(new Callback<ListDetailTokoModel>() {
                 @Override
                 public void onResponse(Call<ListDetailTokoModel> call, Response<ListDetailTokoModel> response) {
-                    progressDialog.dismiss();
+
 
                     setRouteMaps(Double.valueOf(response.body().getData().get(0).getBujur()), Double.valueOf(response.body().getData().get(0).getLintang()), response.body().getData().get(0).getNamaToko());
+
 
                     tvDetailNamaToko = findViewById(R.id.tvDetailNamaToko);
                     tvDetailAlamatToko = findViewById(R.id.tvDetailAlamatToko);
@@ -302,6 +392,9 @@ public class DetailLokasiActivity extends AppCompatActivity {
 
                                         mapController.setCenter(startPoint);
 
+                                        progressDialog.dismiss();
+
+
                                     }
                                 }
                             }, Looper.getMainLooper());
@@ -364,14 +457,5 @@ public class DetailLokasiActivity extends AppCompatActivity {
 
         isEnabled = locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         return isEnabled;
-    }
-    private boolean checkPermissions(){
-        if(ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-            return true;
-        }
-        else {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, PERMISSION_CODE);
-            return false;
-        }
     }
 }

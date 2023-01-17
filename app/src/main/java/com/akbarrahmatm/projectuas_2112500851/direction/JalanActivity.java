@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
+import com.akbarrahmatm.projectuas_2112500851.R;
+
 public class JalanActivity extends AppCompatActivity {
 
     @Override
