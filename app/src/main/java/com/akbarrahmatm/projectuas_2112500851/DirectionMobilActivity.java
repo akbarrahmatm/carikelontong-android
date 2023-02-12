@@ -170,7 +170,7 @@ public class DirectionMobilActivity extends AppCompatActivity {
                                         map.getOverlays().add(endMarker);
 
                                         Road road = roadManager.getRoad(waypoints);
-                                        Double durationVal = (road.mDuration / 60) + 20;
+                                        Double durationVal = (road.mDuration / 60) * 2;
                                         Double distanceVal = road.mLength;
 
                                         DecimalFormat formatVal = new DecimalFormat("#.##");

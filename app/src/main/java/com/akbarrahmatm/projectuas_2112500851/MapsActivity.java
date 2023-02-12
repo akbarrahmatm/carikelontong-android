@@ -42,10 +42,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private ActivityMapsBinding binding;
     private List<TokoModel> mListMarker = new ArrayList<>();
-
     private final int PERMISSION_CODE = 1;
-
-    String URLString;
 
     Button btnDetailToko;
     TextView tvNamaToko, tvAlamatToko;

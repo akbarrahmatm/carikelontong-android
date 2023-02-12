@@ -14,14 +14,12 @@ import android.content.Intent;
 import android.content.IntentSender;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.os.StrictMode;
 import android.preference.PreferenceManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,10 +29,6 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.akbarrahmatm.projectuas_2112500851.direction.JalanActivity;
-import com.akbarrahmatm.projectuas_2112500851.direction.MobilActivity;
-import com.akbarrahmatm.projectuas_2112500851.direction.MotorActivity;
-import com.akbarrahmatm.projectuas_2112500851.directionhelper.FetchURL;
 import com.akbarrahmatm.projectuas_2112500851.model.ListDetailTokoModel;
 import com.akbarrahmatm.projectuas_2112500851.network.ApiClient;
 import com.akbarrahmatm.projectuas_2112500851.network.ApiService;
@@ -48,7 +42,6 @@ import com.google.android.gms.location.LocationSettingsRequest;
 import com.google.android.gms.location.LocationSettingsResponse;
 import com.google.android.gms.location.LocationSettingsStatusCodes;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 
@@ -57,10 +50,7 @@ import org.osmdroid.bonuspack.routing.OSRMRoadManager;
 import org.osmdroid.bonuspack.routing.Road;
 import org.osmdroid.bonuspack.routing.RoadManager;
 import org.osmdroid.config.Configuration;
-import org.osmdroid.tileprovider.tilesource.OnlineTileSourceBase;
-import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
-import org.osmdroid.util.MapTileIndex;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.Polyline;
@@ -76,6 +66,7 @@ public class DetailLokasiActivity extends AppCompatActivity {
     private LocationRequest locationRequest;
     TextView tvDetailNamaToko, tvDetailAlamatToko, tvDetailMinuman, tvDetailEsKrim, tvDetailGas, tvDetailBensin, tvDetailPulsa;
     Button btnCekHarga, btnKembali;
+    ImageButton btnStreetView;
     ProgressDialog progressDialog;
 
 
@@ -96,10 +87,24 @@ public class DetailLokasiActivity extends AppCompatActivity {
         progressDialog.setCanceledOnTouchOutside(false);
 
         btnKembali = findViewById(R.id.btnKembali);
+        btnStreetView = findViewById(R.id.btnStreetView);
+
+        Bundle extras = getIntent().getExtras();
+        String id_toko = extras.getString("id_toko");
+
         btnKembali.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
+            }
+        });
+
+        btnStreetView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DetailLokasiActivity.this, StreetViewActivity.class);
+                intent.putExtra("id_toko", id_toko);
+                startActivity(intent);
             }
         });
 
